@@ -197,7 +197,7 @@ class Library:
         self._current_date += 1
         for member in self._members:
             for item in self.lookup_patron_from_id(member).get_checked_out_items():
-                if self._current_date >= item.get_date_checked_out() + item.get_check_out_length():
+                if self._current_date > item.get_date_checked_out() + item.get_check_out_length():
                     self.lookup_patron_from_id(member).amend_fine(.10)
 
 
