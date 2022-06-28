@@ -84,7 +84,7 @@ class Patron:
         return self._patron_name
 
     def get_fine_amount(self):
-        return round(self._fine_amount, 2)
+        return self._fine_amount
 
     def get_checked_out_items(self):
         return self._checked_out_items
