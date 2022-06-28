@@ -201,7 +201,9 @@ class Library:
                     self.lookup_patron_from_id(member).amend_fine(.10)
 
 
+
 """
+
 lib = Library()
 
 man = Patron(555, "Eric")
