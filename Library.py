@@ -200,7 +200,7 @@ class Library:
                 if self._current_date >= item.get_date_checked_out() + item.get_check_out_length():
                     self.lookup_patron_from_id(member).amend_fine(.10)
 
-
+"""
 lib = Library()
 
 man = Patron(555, "Eric")
@@ -227,7 +227,7 @@ for _ in range(17):
 print(man.get_fine_amount())
 man.amend_fine(-1.1)
 print(man.get_fine_amount())
-
+"""
 
 """for member in lib._members:
     for item in lib.lookup_patron_from_id(member).get_checked_out_items():
