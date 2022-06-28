@@ -84,7 +84,7 @@ class Patron:
         return self._patron_name
 
     def get_fine_amount(self):
-        return round(self._fine_amount, 2)
+        return self._fine_amount
 
     def get_checked_out_items(self):
         return self._checked_out_items
@@ -97,9 +97,9 @@ class Patron:
 
     def amend_fine(self, amount):
         if amount > 0:
-            self._fine_amount += amount
+            self._fine_amount += round(amount, 2)
         else:
-            self._fine_amount -= abs(amount)
+            self._fine_amount -= round(abs(amount), 2)
 
 
 class Library:
