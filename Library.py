@@ -84,7 +84,7 @@ class Patron:
         return self._patron_name
 
     def get_fine_amount(self):
-        return round(self._fine_amount, 3)
+        return self._fine_amount / 100
 
     def get_checked_out_items(self):
         return self._checked_out_items
@@ -97,9 +97,11 @@ class Patron:
 
     def amend_fine(self, amount):
         if amount > 0:
-            self._fine_amount = round(self._fine_amount + amount, 3)
+            amount *= 100
+            self._fine_amount += amount
         else:
-            self._fine_amount = round(self._fine_amount - abs(amount), 3)
+            amount *= -100
+            self._fine_amount -= abs(amount)
 
 
 class Library:
@@ -201,8 +203,8 @@ class Library:
                     self.lookup_patron_from_id(member).amend_fine(.10)
 
 
-
 """
+
 
 lib = Library()
 
@@ -224,12 +226,20 @@ lib.check_out_library_item(555, 222)
 
 
 
-for _ in range(20):
+for _ in range(21):
     lib.increment_current_date()
 
 print(man.get_fine_amount())
-man.amend_fine(-1.37556565)
+man.amend_fine(-1.6666)
 print(man.get_fine_amount())
+
+
+for _ in range(21):
+    lib.increment_current_date()
+print(man.get_fine_amount())
+man.amend_fine(-4.1334)
+print(man.get_fine_amount())
+
 """
 
 """for member in lib._members:
