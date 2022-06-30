@@ -84,7 +84,7 @@ class Patron:
         return self._patron_name
 
     def get_fine_amount(self):
-        return self._fine_amount / 100
+        return self._fine_amount
 
     def get_checked_out_items(self):
         return self._checked_out_items
@@ -96,12 +96,7 @@ class Patron:
         self._checked_out_items.remove(library_item)
 
     def amend_fine(self, amount):
-        if amount > 0:
-            amount = int((amount * 100))
-            self._fine_amount += amount
-        else:
-            amount = int((amount * 100))
-            self._fine_amount -= abs(amount)
+        self._fine_amount += amount
 
 
 class Library:
@@ -124,13 +119,13 @@ class Library:
         if library_item_id in self._holdings:
             return self._holdings[library_item_id]
         else:
-            return "item not found"
+            return
 
     def lookup_patron_from_id(self, patron_id):
         if patron_id in self._members:
             return self._members[patron_id]
         else:
-            return "patron not found"
+            return
 
     def check_out_library_item(self, patron_id, library_item_id):
         if patron_id in self._members:
@@ -190,21 +185,22 @@ class Library:
 
     def pay_fine(self, patron_id, amount):
         if patron_id in self._members:
-            self._members[patron_id].amend_fine(amount)
+            self._members[patron_id].amend_fine(-amount)
             return "payment successful"
         else:
             return "patron not found"
 
     def increment_current_date(self):
+        self._current_date += 1
+
         for member in self._members:
             for item in self.lookup_patron_from_id(member).get_checked_out_items():
                 if self._current_date > (item.get_date_checked_out() + item.get_check_out_length()):
                     self.lookup_patron_from_id(member).amend_fine(.10)
-        self._current_date += 1
-
 
 
 """
+
 00
 
 lib = Library()
@@ -237,10 +233,10 @@ lib.return_library_item(444)
 lib.check_out_library_item(777, 444)
 
 
-"""
-"""
 
-for _ in range(23):
+
+
+for _ in range(22):
     lib.increment_current_date()
 
 lib.pay_fine(555, 0)
@@ -252,12 +248,16 @@ print(man.get_fine_amount())
 for _ in range(125):
     lib.increment_current_date()
 print(man.get_fine_amount())
-man.amend_fine()
+lib.pay_fine(555, 25.2)
+print(man.get_fine_amount())
+
 print(man.get_fine_amount())
 
 
+"""
 
 
+"""
 
 for member in lib._members:
     for item in lib.lookup_patron_from_id(member).get_checked_out_items():
