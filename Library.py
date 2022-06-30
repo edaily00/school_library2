@@ -198,7 +198,7 @@ class Library:
     def increment_current_date(self):
         for member in self._members:
             for item in self.lookup_patron_from_id(member).get_checked_out_items():
-                if self._current_date > item.get_date_checked_out() + item.get_check_out_length():
+                if self._current_date >= item.get_date_checked_out() + item.get_check_out_length():
                     self.lookup_patron_from_id(member).amend_fine(.10)
         self._current_date += 1
 
@@ -226,22 +226,23 @@ lib.check_out_library_item(555, 111)
 lib.check_out_library_item(555, 333)
 
 
-for _ in range(23):
+for _ in range(22):
     lib.increment_current_date()
 
 print(man.get_fine_amount())
-lib.pay_fine(555, -.4)
+lib.pay_fine(555, 0)
 print(man.get_fine_amount())
-
-
-
-for _ in range(21):
+print(lib._current_date)
+"""
+"""
+for _ in range(125):
     lib.increment_current_date()
 print(man.get_fine_amount())
-man.amend_fine(-4.2)
+man.amend_fine()
 print(man.get_fine_amount())
 
 """
+
 
 """for member in lib._members:
     for item in lib.lookup_patron_from_id(member).get_checked_out_items():
