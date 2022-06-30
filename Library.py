@@ -203,6 +203,7 @@ class Library:
         self._current_date += 1
 
 
+"""
 
 
 
@@ -232,12 +233,16 @@ for _ in range(23):
 lib.pay_fine(555, 0)
 print(lib._current_date)
 print(man.get_fine_amount())
+
+"""
+
 """
 for _ in range(125):
     lib.increment_current_date()
 print(man.get_fine_amount())
 man.amend_fine()
 print(man.get_fine_amount())
+
 
 """
 
