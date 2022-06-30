@@ -196,18 +196,18 @@ class Library:
             return print("patron not found")
 
     def increment_current_date(self):
-        self._current_date += 1
         for member in self._members:
             for item in self.lookup_patron_from_id(member).get_checked_out_items():
                 if self._current_date >= item.get_date_checked_out() + item.get_check_out_length():
                     self.lookup_patron_from_id(member).amend_fine(.10)
+        self._current_date += 1
 
 
 """
 
 
 lib = Library()
-000
+
 man = Patron(555, "Eric")
 women = Patron(777, "Jess")
 
