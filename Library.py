@@ -199,7 +199,7 @@ class Library:
         self._current_date += 1
         for member in self._members:
             for item in self.lookup_patron_from_id(member).get_checked_out_items():
-                if self._current_date >= item.get_date_checked_out() + item.get_check_out_length():
+                if self._current_date > item.get_date_checked_out() + item.get_check_out_length():
                     self.lookup_patron_from_id(member).amend_fine(.10)
 
 
@@ -212,26 +212,27 @@ man = Patron(555, "Eric")
 women = Patron(777, "Jess")
 
 book1 = Book(111, "cool movie", "writer")
+book2 = Book(333, "its a book", "writer")
 movie1 = Movie(222, "movie", "Lord")
 lib.add_library_item(book1)
 lib.add_library_item(movie1)
+lib.add_library_item(book2)
 lib.add_patron(man)
 lib.add_patron(women)
 print(lib._current_date)
 print(lib._current_date)
 
-print(man.get_fine_amount())
 lib.check_out_library_item(555, 111)
-lib.check_out_library_item(555, 222)
+lib.check_out_library_item(555, 333)
 
 
-
-for _ in range(21):
+for _ in range(23):
     lib.increment_current_date()
 
-print(int((man.get_fine_amount())*100)/100)
-man.amend_fine(-5.54)
 print(man.get_fine_amount())
+man.amend_fine(-.4)
+print(man.get_fine_amount())
+
 
 
 for _ in range(21):
