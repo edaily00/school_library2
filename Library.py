@@ -203,7 +203,7 @@ class Library:
                     self.lookup_patron_from_id(member).amend_fine(.10)
 
 
-
+"""
 
 
 lib = Library()
@@ -241,7 +241,7 @@ print(man.get_fine_amount())
 man.amend_fine(-4.2)
 print(man.get_fine_amount())
 
-
+"""
 
 """for member in lib._members:
     for item in lib.lookup_patron_from_id(member).get_checked_out_items():
