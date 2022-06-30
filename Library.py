@@ -154,7 +154,7 @@ class Library:
             else:
                 return "item not found"
         else:
-            return "patron no found"
+            return "patron not found"
 
         return "check out successful"
 
