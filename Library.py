@@ -97,10 +97,10 @@ class Patron:
 
     def amend_fine(self, amount):
         if amount > 0:
-            amount = round((amount * 100), 0)
+            amount = round(amount, 2)
             self._fine_amount += amount
         else:
-            amount = round((amount * 100), 0)
+            amount = round(amount, 2)
             self._fine_amount -= abs(amount)
 
 
