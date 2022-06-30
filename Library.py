@@ -84,7 +84,7 @@ class Patron:
         return self._patron_name
 
     def get_fine_amount(self):
-        return self._fine_amount
+        return self._fine_amount / 100
 
     def get_checked_out_items(self):
         return self._checked_out_items
@@ -97,10 +97,10 @@ class Patron:
 
     def amend_fine(self, amount):
         if amount > 0:
-            amount = amount
+            amount = int((amount * 100))
             self._fine_amount += amount
         else:
-            amount = amount
+            amount = int((amount * 100))
             self._fine_amount -= abs(amount)
 
 
