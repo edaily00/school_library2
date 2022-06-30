@@ -203,9 +203,9 @@ class Library:
         self._current_date += 1
 
 
+
+
 """
-
-
 
 lib = Library()
 
@@ -215,17 +215,30 @@ women = Patron(777, "Jess")
 book1 = Book(111, "cool movie", "writer")
 book2 = Book(333, "its a book", "writer")
 movie1 = Movie(222, "movie", "Lord")
+movie2 = Movie(444, "movie2", "cat")
 lib.add_library_item(book1)
 lib.add_library_item(movie1)
+lib.add_library_item(movie2)
 lib.add_library_item(book2)
 lib.add_patron(man)
 lib.add_patron(women)
 print(lib._current_date)
-print(lib._current_date)
 
 lib.check_out_library_item(555, 111)
 lib.check_out_library_item(555, 333)
+lib.check_out_library_item(555, 444)
 
+lib.check_out_library_item(777, 111)
+lib.request_library_item(777, 111)
+lib.request_library_item(555, 111)
+lib.check_out_library_item(777, 444)
+lib.request_library_item(777, 444)
+lib.return_library_item(444)
+lib.check_out_library_item(777, 444)
+
+"""
+
+"""
 
 for _ in range(23):
     lib.increment_current_date()
@@ -246,8 +259,8 @@ print(man.get_fine_amount())
 
 """
 
-
-"""for member in lib._members:
+"""
+for member in lib._members:
     for item in lib.lookup_patron_from_id(member).get_checked_out_items():
         if lib._current_date > item.get_date_checked_out() + item.get_check_out_length():
             lib.lookup_patron_from_id(member).amend_fine(.10)
