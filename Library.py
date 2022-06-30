@@ -148,15 +148,15 @@ class Library:
                         self._members[patron_id].add_library_item(self._holdings[library_item_id])
                         self._holdings[library_item_id].set_requested_by("None")
                     else:
-                        return print("item on hold by other patron")
+                        print("item on hold by other patron")
                 else:
-                    return print("item already checked out")
+                    print("item already checked out")
             else:
-                return print("item not found")
+                print("item not found")
         else:
-            return print("patron no found")
+            print("patron no found")
 
-        return print("check out successful")
+        print("check out successful")
 
     def return_library_item(self, library_item_id):
         if library_item_id in self._holdings:
@@ -168,11 +168,11 @@ class Library:
                 elif self._holdings[library_item_id].get_requested_by() != "None":
                     self._holdings[library_item_id].set_location("ON_HOLD_SHELF")
             else:
-                return print("item already in library")
+                print("item already in library")
         else:
-            return print("item not found")
+            print("item not found")
 
-        return print("return successful")
+        print("return successful")
 
     def request_library_item(self, patron_id, library_item_id):
         if patron_id in self._members:
@@ -180,20 +180,20 @@ class Library:
                 if self._holdings[library_item_id].get_requested_by() == "None":
                     self._holdings[library_item_id].set_requested_by(patron_id)
                     self._holdings[library_item_id].set_location("ON_HOLD_SHELF")
-                    return print("request successful")
+                    print("request successful")
                 else:
-                    return print("item already on hold")
+                    print("item already on hold")
             else:
-                return print("item not found")
+                print("item not found")
         else:
-            return print("patron not found")
+            print("patron not found")
 
     def pay_fine(self, patron_id, amount):
         if patron_id in self._members:
             self._members[patron_id].amend_fine(amount)
-            return print("payment successful")
+            print("payment successful")
         else:
-            return print("patron not found")
+            print("patron not found")
 
     def increment_current_date(self):
         for member in self._members:
@@ -203,9 +203,9 @@ class Library:
         self._current_date += 1
 
 
-
-
 """
+
+
 
 lib = Library()
 
@@ -236,9 +236,9 @@ lib.request_library_item(777, 444)
 lib.return_library_item(444)
 lib.check_out_library_item(777, 444)
 
-"""
 
-"""
+
+
 
 for _ in range(23):
     lib.increment_current_date()
@@ -246,7 +246,6 @@ for _ in range(23):
 lib.pay_fine(555, 0)
 print(lib._current_date)
 print(man.get_fine_amount())
-
 """
 
 """
