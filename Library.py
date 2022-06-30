@@ -97,10 +97,10 @@ class Patron:
 
     def amend_fine(self, amount):
         if amount > 0:
-            amount = round(amount, 2)
+            amount = int(amount * 100)
             self._fine_amount += amount
         else:
-            amount = round(amount, 2)
+            amount = int(amount * 100)
             self._fine_amount -= abs(amount)
 
 
@@ -203,8 +203,8 @@ class Library:
                     self.lookup_patron_from_id(member).amend_fine(.10)
 
 
-"""
 
+"""
 
 lib = Library()
 
@@ -229,15 +229,15 @@ lib.check_out_library_item(555, 222)
 for _ in range(21):
     lib.increment_current_date()
 
-print(man.get_fine_amount())
-man.amend_fine(-1.87)
+print(int((man.get_fine_amount())*100)/100)
+man.amend_fine(-5.54)
 print(man.get_fine_amount())
 
 
 for _ in range(21):
     lib.increment_current_date()
 print(man.get_fine_amount())
-man.amend_fine(-3.93)
+man.amend_fine(0)
 print(man.get_fine_amount())
 
 """
