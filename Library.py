@@ -1,5 +1,9 @@
+#Author: Eric Daily
+#GitHub username: edaily00
+#Date: 7/5/2022
+#This program creates a library which holds items and members and allows members to check them out and also allows the library to charge fines
 class LibraryItem:
-
+    # The library Item class has an id, title, location, checked out by, requested by, and date checked out attributes
     def __init__(self, library_item_id, title):
         self._library_item_id = library_item_id
         self._title = title
@@ -37,7 +41,7 @@ class LibraryItem:
 
 
 class Book(LibraryItem):
-
+    #The book inherits the library item class and adds author and check out length
     def __init__(self, library_item_id, title, author):
         super().__init__(library_item_id, title)
         self._author = author
@@ -48,7 +52,7 @@ class Book(LibraryItem):
 
 
 class Album(LibraryItem):
-
+    #The album inherits the library item class and adds an artist and check out length
     def __init__(self, library_item_id, title, artist):
         super().__init__(library_item_id, title)
         self._artist = artist
@@ -59,7 +63,7 @@ class Album(LibraryItem):
 
 
 class Movie(LibraryItem):
-
+    #The movie inherits the library item class and adds a director and check out length
     def __init__(self, library_item_id, title, director):
         super().__init__(library_item_id, title)
         self._director = director
@@ -70,7 +74,7 @@ class Movie(LibraryItem):
 
 
 class Patron:
-
+    #The patron class has an id, name, list of checked out items and a fine amount
     def __init__(self, patron_id, patron_name):
         self._patron_id = patron_id
         self._patron_name = patron_name
@@ -100,7 +104,7 @@ class Patron:
 
 
 class Library:
-
+    #The library class has a dictionary of library items, dictionary of patrons and keeps up with the date.
     def __init__(self):
         self._holdings = {}
         self._members = {}
@@ -174,7 +178,8 @@ class Library:
             if library_item_id in self._holdings:
                 if self._holdings[library_item_id].get_requested_by() == "None":
                     self._holdings[library_item_id].set_requested_by(patron_id)
-                    self._holdings[library_item_id].set_location("ON_HOLD_SHELF")
+                    if self._holdings[library_item_id].get_location() != "CHECKED_OUT":
+                        self._holdings[library_item_id].set_location("ON_HOLD_SHELF")
                     return "request successful"
                 else:
                     return "item already on hold"
@@ -197,88 +202,4 @@ class Library:
             for item in self.lookup_patron_from_id(member).get_checked_out_items():
                 if self._current_date > (item.get_date_checked_out() + item.get_check_out_length()):
                     self.lookup_patron_from_id(member).amend_fine(.10)
-
-
-"""
-
-00
-
-lib = Library()
-
-man = Patron(555, "Eric")
-women = Patron(777, "Jess")
-
-book1 = Book(111, "cool movie", "writer")
-book2 = Book(333, "its a book", "writer")
-movie1 = Movie(222, "movie", "Lord")
-movie2 = Movie(444, "movie2", "cat")
-lib.add_library_item(book1)
-lib.add_library_item(movie1)
-lib.add_library_item(movie2)
-lib.add_library_item(book2)
-lib.add_patron(man)
-lib.add_patron(women)
-print(lib._current_date)
-
-lib.check_out_library_item(555, 111)
-lib.check_out_library_item(555, 333)
-lib.check_out_library_item(555, 444)
-
-lib.check_out_library_item(777, 111)
-lib.request_library_item(777, 111)
-lib.request_library_item(555, 111)
-lib.check_out_library_item(777, 444)
-lib.request_library_item(777, 444)
-lib.return_library_item(444)
-lib.check_out_library_item(777, 444)
-
-
-
-
-
-for _ in range(22):
-    lib.increment_current_date()
-
-lib.pay_fine(555, 0)
-print(lib._current_date)
-print(man.get_fine_amount())
-
-
-
-for _ in range(125):
-    lib.increment_current_date()
-print(man.get_fine_amount())
-lib.pay_fine(555, 25.2)
-print(man.get_fine_amount())
-
-print(man.get_fine_amount())
-
-
-"""
-
-
-"""
-
-for member in lib._members:
-    for item in lib.lookup_patron_from_id(member).get_checked_out_items():
-        if lib._current_date > item.get_date_checked_out() + item.get_check_out_length():
-            lib.lookup_patron_from_id(member).amend_fine(.10)
-"""
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
